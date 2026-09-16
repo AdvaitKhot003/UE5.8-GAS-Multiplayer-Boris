@@ -13,12 +13,13 @@ public class Boris : ModuleRules
 			"Core",
 			"CoreUObject",
 			"Engine",
-			"InputCore"
+			"InputCore",
+			"EnhancedInput"
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[]
 		{
-			
+			"GameplayTags"
 		});
 
 		// Uncomment if you are using Slate UI
