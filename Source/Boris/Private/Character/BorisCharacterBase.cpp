@@ -9,3 +9,8 @@ ABorisCharacterBase::ABorisCharacterBase()
 	// Tick and refresh bone transforms whether rendered or not rendered for bone updates on dedicated server.
 	GetMesh()->VisibilityBasedAnimTickOption = EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;
 }
+
+UAbilitySystemComponent* ABorisCharacterBase::GetAbilitySystemComponent() const
+{
+	return nullptr;
+}

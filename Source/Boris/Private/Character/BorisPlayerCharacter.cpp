@@ -5,6 +5,8 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Player/BorisPlayerState.h"
+#include "AbilitySystemComponent.h"
 
 ABorisPlayerCharacter::ABorisPlayerCharacter()
 {
@@ -39,4 +41,41 @@ ABorisPlayerCharacter::ABorisPlayerCharacter()
 	GetCharacterMovement()->MinAnalogWalkSpeed = 20.f;
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
 	GetCharacterMovement()->BrakingDecelerationFalling = 1500.f;
+}
+
+void ABorisPlayerCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+	
+	/** Server **/
+	InitAbilityPlayerInfo();
+}
+
+void ABorisPlayerCharacter::OnRep_PlayerState()
+{
+	Super::OnRep_PlayerState();
+	
+	/** Clinet **/
+	InitAbilityPlayerInfo();
+}
+
+ABorisPlayerState* ABorisPlayerCharacter::GetBorisPlayerState() const
+{
+	return GetPlayerState<ABorisPlayerState>();
+}
+
+UAbilitySystemComponent* ABorisPlayerCharacter::GetAbilitySystemComponent() const
+{
+	const ABorisPlayerState* BorisPlayerState = GetBorisPlayerState();
+	check(BorisPlayerState);
+	
+	return BorisPlayerState->GetAbilitySystemComponent();
+}
+
+void ABorisPlayerCharacter::InitAbilityPlayerInfo()
+{
+	UAbilitySystemComponent* AbilitySystemComponent = GetAbilitySystemComponent();
+	check(AbilitySystemComponent);
+	
+	AbilitySystemComponent->InitAbilityActorInfo(GetBorisPlayerState(), this);
 }

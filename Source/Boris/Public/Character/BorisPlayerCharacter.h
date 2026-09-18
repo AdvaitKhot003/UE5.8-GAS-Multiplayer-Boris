@@ -8,6 +8,7 @@
 
 class USpringArmComponent;
 class UCameraComponent;
+class ABorisPlayerState;
 /**
  * 
  */
@@ -19,10 +20,22 @@ class BORIS_API ABorisPlayerCharacter : public ABorisCharacterBase
 public:
 	ABorisPlayerCharacter();
 	
-private:
+	virtual void PossessedBy(AController* NewController) override;
+	virtual void OnRep_PlayerState() override;
+	
+	/** Ability System Interface - Start **/
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+	/** Ability System Interface - End **/
+	
+	ABorisPlayerState* GetBorisPlayerState() const;
+	
+protected:
 	UPROPERTY(VisibleAnywhere, Category = "Boris|Camera")
 	TObjectPtr<USpringArmComponent> CameraBoom;
 	
 	UPROPERTY(VisibleAnywhere, Category = "Boris|Camera")
 	TObjectPtr<UCameraComponent> FollowCamera;
+	
+private:
+	void InitAbilityPlayerInfo();
 };

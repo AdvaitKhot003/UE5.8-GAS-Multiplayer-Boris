@@ -42,16 +42,16 @@ void ABorisPlayerController::SetupInputComponent()
 	UBorisInputComponent* BorisInputComponent = CastChecked<UBorisInputComponent>(InputComponent);
 	
 	BorisInputComponent->BindNativeInputAction(BorisInputData, BorisGameplayTags::Input_Move,
-		ETriggerEvent::Triggered, this, &ThisClass::Move);
+		ETriggerEvent::Triggered, this, &ABorisPlayerController::Move);
 	
 	BorisInputComponent->BindNativeInputAction(BorisInputData, BorisGameplayTags::Input_Look,
-		ETriggerEvent::Triggered, this, &ThisClass::Look);
+		ETriggerEvent::Triggered, this, &ABorisPlayerController::Look);
 	
 	BorisInputComponent->BindNativeInputAction(BorisInputData, BorisGameplayTags::Input_Jump,
-		ETriggerEvent::Started, this, &ThisClass::Jump);
+		ETriggerEvent::Started, this, &ABorisPlayerController::Jump);
 	
 	BorisInputComponent->BindNativeInputAction(BorisInputData, BorisGameplayTags::Input_Jump,
-		ETriggerEvent::Completed, this, &ThisClass::StopJumping);
+		ETriggerEvent::Completed, this, &ABorisPlayerController::StopJumping);
 	
 	BorisInputComponent->BindAbilityInputAction(BorisInputData, this,
 		&ThisClass::AbilityInputPressed, &ThisClass::AbilityInputHeld, &ThisClass::AbilityInputReleased);
